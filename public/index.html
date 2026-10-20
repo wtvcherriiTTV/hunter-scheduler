@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book a Hunt</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <a class="btn secondary small admin-link" href="/admin">Admin sign in</a>
+  <header class="top">
+    <h1 id="propName">Book a Hunt</h1>
+    <p>Request a time to hunt. If two hunters ask for overlapping times in the same area, a fair random draw picks the winner.</p>
+  </header>
+
+  <main class="wrap">
+    <div class="grid two">
+      <section class="card">
+        <h2>Request a hunt</h2>
+        <form id="form" novalidate>
+          <label for="name">Your name</label>
+          <input id="name" name="name" autocomplete="name" maxlength="80" required>
+
+          <div class="row">
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="tel" autocomplete="tel" maxlength="40">
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" maxlength="120">
+            </div>
+          </div>
+          <div class="hint">Phone or email is required.</div>
+
+          <div class="row">
+            <div id="areaWrap" hidden>
+              <label for="areaId">Area</label>
+              <select id="areaId" name="areaId"></select>
+            </div>
+            <div>
+              <label for="party">Hunters in your party</label>
+              <input id="party" name="party" type="number" min="1" max="20" value="1" required>
+            </div>
+          </div>
+
+          <div class="row3">
+            <div>
+              <label for="date">Date</label>
+              <input id="date" name="date" type="date" required>
+            </div>
+            <div>
+              <label for="start">From</label>
+              <input id="start" name="start" type="time" value="06:00" required>
+            </div>
+            <div>
+              <label for="end">Until</label>
+              <input id="end" name="end" type="time" value="11:00" required>
+            </div>
+          </div>
+
+          <label for="notes">Notes (optional)</label>
+          <textarea id="notes" name="notes" maxlength="500" placeholder="Vehicle, blind location, anything the landowner should know"></textarea>
+
+          <div class="actions">
+            <button type="submit" id="submitBtn">Submit request</button>
+          </div>
+          <div id="formMsg" role="status"></div>
+        </form>
+      </section>
+
+      <aside>
+        <section class="card">
+          <h2>How it works</h2>
+          <ol>
+            <li>Submit the date and hours you want.</li>
+            <li>You get a <strong>request code</strong>. Keep it.</li>
+            <li id="drawInfo">The draw runs automatically before your hunt date.</li>
+            <li>If nobody overlaps you, you're confirmed. If someone does, one name is drawn at random.</li>
+          </ol>
+          <h2>Property rules</h2>
+          <div id="rules" class="rules hint"></div>
+        </section>
+
+        <section class="card">
+          <h2>Check or cancel a request</h2>
+          <label for="lookupCode">Request code</label>
+          <input id="lookupCode" maxlength="10" autocapitalize="characters" placeholder="e.g. K7Q2ZD">
+          <div class="actions"><button type="button" class="secondary" id="lookupBtn">Look up</button></div>
+          <div id="lookupResult"></div>
+        </section>
+      </aside>
+    </div>
+
+    <section class="card" id="mineCard" hidden>
+      <h2>Your requests on this device</h2>
+      <div id="mine"></div>
+    </section>
+
+    <section class="card">
+      <h2>Upcoming schedule</h2>
+      <p class="hint">
+        <span class="badge approved">Confirmed</span>
+        <span class="badge pending">Pending</span>
+        <span class="badge contested">Contested: draw will decide</span>
+      </p>
+      <div id="calendar"></div>
+    </section>
+  </main>
+
+  <script src="/common.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
